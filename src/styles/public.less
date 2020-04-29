@@ -1,0 +1,73 @@
+/*
+ * Created: 2019-12-30 13:08:55
+ * Author : Jan
+ * Last Modified: 2019-12-30 13:08:56
+ * Modified By: Jan
+ * Copyright (c) 2019. 深圳奥雅纳智能科技有限公司. All Rights Reserved.
+ */
+
+// *************** 此文件专用保存方法工具 *************** \\
+
+// 主题背景色
+@theme-backgroundColor: #24262e;
+// 分割线颜色
+@devideColor: #444b57;
+// 版心宽度
+@main-width: 1200px;
+
+// 盒子宽高
+.size(@w, @h) {
+  width: @w;
+  height: @h;
+}
+
+// 绝对定位
+.position-absolute(@x, @y) {
+  position: absolute;
+  left: @x;
+  top: @y;
+}
+
+// 绝对定位居中
+.box-center() {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// 弹性居中
+.flex-center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// 禁止文本被选择
+.user-select() {
+  -webkit-touch-callout: none;
+  /*系统默认菜单被禁用*/
+  -webkit-user-select: none;
+  /*webkit浏览器*/
+  -khtml-user-select: none;
+  /*早期浏览器*/
+  -moz-user-select: none;
+  /*火狐*/
+  -ms-user-select: none;
+  /*IE10*/
+  user-select: none;
+}
+
+
+// 清除浮动
+.clearfix() {
+  *zoom: 1;
+
+  &:after {
+    display: block;
+    clear: both;
+    content: '';
+    visibility: hidden;
+    height: 0;
+  }
+}
