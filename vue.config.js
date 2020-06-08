@@ -1,17 +1,34 @@
 // vue.config.js
+const path = require('path')
+const resolve = dir => path.join(__dirname, dir)
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 module.exports = {
   // 当运行 vue-cli-service build 时生成的生产环境构建文件的目录
   outputDir: 'dist',
   // 部署应用包的基本URL
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   // 生产环境是否生成 sourceMap 文件 sourceMap的详解请看末尾
-  productionSourceMap: true,
+  productionSourceMap: process.env.NODE_ENV !== 'production',
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
       // 为生产环境修改配置...
     } else {
       // 为开发环境修改配置...
     }
+  },
+  chainWebpack: config => {
+    // 修复HMR
+    config.resolve.symlinks(true)
+    // 添加别名
+    config.resolve.alias
+      .set('@', resolve('src'))
+      .set('@assets', resolve('src/assets'))
+      // 静态分析
+    config.plugin('webpack-report').use(BundleAnalyzerPlugin, [{
+      analyzerMode: 'static'
+    }
+    ])
   },
   // css相关配置
   css: {
@@ -37,7 +54,10 @@ module.exports = {
         target: 'xxx',
         // 如果要代理 websockets
         ws: true,
-        changeOrigin: true
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/'
+        }
       }
     }
   }
